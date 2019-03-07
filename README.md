@@ -6,7 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 `npm install apollo-angular apollo-angular-link-http apollo-cache-inmemory apollo-client apollo-link-context graphql graphql-tag --save`
 
 ## Boot(strap/swatch)
-`npm install bootswatch jquery popper.js --save`
+`npm install bootswatch jquery popper.js bootstrap --save`
 
 https://bootswatch.com/sketchy/
 

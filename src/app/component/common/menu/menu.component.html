@@ -1,0 +1,85 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+  <a class="navbar-brand" routerLink="/"><img src="/assets/img/logo.png" class="logo img-fluid" alt="Responsive image"/></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon">
+    </span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <ul class="navbar-nav mr-auto">
+      <ng-template [ngIf]="auth.currentUser">
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/garden" routerLinkActive="text-success">Garden
+              <span class="sr-only">(current)</span>
+            </a>
+        </li>
+        <li class="nav-item dropdown" *ngIf="auth.haveRole('ROLE_ADMIN')">
+          <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Admin
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/info" routerLinkActive="text-success">Info
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/lists" routerLinkActive="text-success">Lists
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/species" routerLinkActive="text-success">Species
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ng-template>
+    </ul>
+    <!--form class="form-inline my-2 my-lg-0">
+      <input name="word" required  class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <form class="form-inline my-2 my-lg-0" (ngSubmit)="onSubmit(formSearch)" #formSearch="ngForm">
+      <input name="word" ngModel required  class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button [disabled]="formSearch.invalid" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>-->
+    <ul class="navbar-nav navbar-right">
+      <li class="nav-item dropdown" *ngIf="auth.currentUser; then thenBlock else elseBlock"></li>
+
+      <ng-template #thenBlock>
+      <li class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{auth.currentUser.displayName}}
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/profil" routerLinkActive="text-success">Profil
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a (click)="logout()" class="nav-link" href="#">Logout</a>
+          </li>
+        </ul>
+      </li>
+      </ng-template>
+
+      <ng-template #elseBlock>
+      <li class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Login
+          <span class="caret"></span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <app-login></app-login>
+        </div>
+      </li>
+      </ng-template>
+
+    </ul>
+  </div>
+</nav>

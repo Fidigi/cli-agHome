@@ -1,0 +1,34 @@
+<div id="login-dp" class="row">
+  <div class="col-md-12">
+    <h5>Login</h5>
+    <div [hidden]="!error" class="alert-danger" role="alert">
+      <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon>
+      <span class="text-center">{{error}}</span>
+    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label class="sr-only" for="credential">Username or Email address</label>
+        <input type="text" class="form-control" id="credential" placeholder="Username / Email *" formControlName="username">
+      </div>
+      <div class="form-group">
+        <label class="sr-only" for="password">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Password *" formControlName="password">
+        <div class="help-block text-right">
+          <a href="">Forget the password ?</a>
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-outline-success btn-block" [disabled]="!loginForm.valid">Sign in</button>
+      </div>
+      <div class="form-group">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="remember" formControlName="remember">
+          <label class="custom-control-label" for="remember">keep me logged-in</label>
+        </div>
+      </div>
+    </form>
+    <div class="bottom text-center">
+      New here ? <a href="#"><b>Join Us</b></a>
+    </div>
+  </div>
+</div>
