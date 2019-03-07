@@ -2,13 +2,32 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.3.
 
+## Apollo
+`npm install apollo-angular apollo-angular-link-http apollo-cache-inmemory apollo-client apollo-link-context graphql graphql-tag --save`
+
+## Boot(strap/swatch)
+`npm install bootswatch jquery popper.js --save`
+
+https://bootswatch.com/sketchy/
+
+## Fontawesome
+`npm install @fortawesome/fontawesome-svg-core @fortawesome/free-solid-svg-icons @fortawesome/free-regular-svg-icons @fortawesome/free-brands-svg-icons @fortawesome/angular-fontawesome --save`
+
+https://fontawesome.com/icons?d=gallery&m=free
+
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve -o --host=127.0.0.1 --port=8080` for a dev server. Navigate to `http://localhost:8080/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+ng g m module/module-name  
+ng g c module/component-name  
+ng g c component/common-component-name  
+ng g s service/service-name  
+ng g class model/model-name  
 
 ## Build
 
