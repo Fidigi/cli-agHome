@@ -24,8 +24,7 @@ Run `ng serve -o --host=127.0.0.1 --port=8080` for a dev server. Navigate to `ht
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ng g m module/module-name  
-ng g c module/component-name  
-ng g c component/common-component-name  
+ng g c module/module-name/component-name  
 ng g s service/service-name  
 ng g class model/model-name  
 
