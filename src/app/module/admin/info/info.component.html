@@ -1,11 +1,28 @@
 <div class="jumbotron">
   <h1 class="text-center">Info</h1>
-  <h2>Environment :</h2>
-  <pre>{{env | json}}</pre>
-  <hr>
-  <h2>AppConfig :</h2>
-  <pre>{{iAppConfig | json}}</pre>
-  <hr>
-  <h2>CurrentUser :</h2>
-  <pre>{{auth.currentUser | json}}</pre>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#environment">Environment</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#appConfig">AppConfig</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#currentUser">CurrentUser</a>
+    </li>
+  </ul>
+  <div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade active show" id="environment">
+      <h2>Environment :</h2>
+      <pre>{{env | json}}</pre>
+    </div>
+    <div class="tab-pane fade" id="appConfig">
+      <h2>AppConfig :</h2>
+      <pre>{{iAppConfig | json}}</pre>
+    </div>
+    <div class="tab-pane fade" id="currentUser">
+      <h2>CurrentUser :</h2>
+      <pre>{{auth.currentUser | json}}</pre>
+    </div>
+  </div>
 </div>

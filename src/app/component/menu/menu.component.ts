@@ -1,7 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { AuthentService } from 'src/app/service/auth/authent.service';
 import { ModalService } from 'src/app/service/front/modal.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',

@@ -22,10 +22,10 @@ import { ErrorModule } from './module/error/error.module';
 import { AdminModule } from './module/admin/admin.module';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './component/common/login/login.component';
-import { MenuComponent } from './component/common/menu/menu.component';
-import { HomeComponent } from './component/home/home.component';
+import { LoginComponent } from './component/login/login.component';
+import { MenuComponent } from './component/menu/menu.component';
 import { ModalComponent } from './component/modal/modal.component';
+import { HomeComponent } from './component/home/home.component';
 
 export function initializeService(appService: any) {
   return () => appService.load();

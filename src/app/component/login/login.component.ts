@@ -21,8 +21,8 @@ export class LoginComponent implements OnInit {
   error: string = '';
 
   constructor(
-    private formBuilder: FormBuilder,
     private auth: AuthentService,
+    private formBuilder: FormBuilder,
     private router: Router
   ) {
   }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { GuardService } from 'src/app/service/auth/guard.service';
 
@@ -13,6 +14,14 @@ const routes: Routes = [
   {
     path: 'admin/lists',
     component: ListsComponent,
+    canActivate: [GuardService], 
+    data: { 
+      expectedRole: 'ROLE_ADMIN'
+    } 
+  },
+  {
+    path: 'admin/list/:id',
+    component: ListEditComponent,
     canActivate: [GuardService], 
     data: { 
       expectedRole: 'ROLE_ADMIN'
@@ -29,6 +38,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FontAwesomeModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes,{onSameUrlNavigation: 'reload'})
   ],
   exports: [
