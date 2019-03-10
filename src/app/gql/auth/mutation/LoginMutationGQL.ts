@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Query, Mutation } from 'apollo-angular';
-
+import { Mutation } from 'apollo-angular';
 import gql from 'graphql-tag';
 
 @Injectable({

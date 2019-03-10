@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
         //console.log(`received data ${JSON.stringify(data, null, 2)}`);
         this.auth.saveUserData(data.data.signin);
         if(this.embed){
-          this.embedClose.emit('login');
+          this.embedClose.emit(this.embed);
         }
       })
       .catch(error => {

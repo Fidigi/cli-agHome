@@ -21,7 +21,7 @@ export class GuardService implements CanActivate {
       return false;
     } 
     else if(this.auth.currentUser != null) {
-      if(expectedRole != null && this.auth.hasRole(expectedRole) !== true){
+      if(expectedRole != null && this.auth.currentUser.hasRole(expectedRole) !== true){
         this.redirect('401');
         return false;
       }

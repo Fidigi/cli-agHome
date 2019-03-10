@@ -4,11 +4,9 @@ import { Apollo } from 'apollo-angular';
 import { HttpHeaders } from '@angular/common/http';
 import { HttpLink } from 'apollo-angular-link-http';
 import { setContext } from "apollo-link-context";
+import { execute, makePromise } from 'apollo-link';
 
 import * as Rx from 'rxjs';
-
-import { execute, makePromise } from 'apollo-link';
-import { AuthentService } from './auth/authent.service';
 
 @Injectable({
   providedIn: 'root'

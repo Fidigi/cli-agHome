@@ -1,16 +1,42 @@
 <div class="jumbotron">
-  <h1 class="text-center">Create list</h1>
+  <h1 class="text-center">{{actionLabel}} list</h1>
   <div [hidden]="!error" class="alert-danger" role="alert">
     <fa-icon [icon]="['fas', 'exclamation-triangle']"></fa-icon>
     <span class="text-center">{{error}}</span>
   </div>
   <form [formGroup]="listForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
-      <label class="sr-only" for="type">Type</label>
-      <input type="text" class="form-control" id="type" placeholder="Type *" formControlName="type">
+      <label for="label">Label</label>
+      <input type="text" class="form-control" id="label" placeholder="Label *" formControlName="label">
+      <small id="typeHelp" class="form-text text-muted">Unique label require.</small>
     </div>
+    <fieldset formArrayName="values" class="form-group">
+      <legend>Binding values</legend>
+      <div class="row"
+        *ngFor="let item of listForm.get('values').controls; let i=index"
+        [formGroup]="item">
+        <div class="form-group col-12">
+          <label [attr.for]="'value'+i" class="sr-only">Value</label>
+            <button type="button" 
+              class="btn btn-primary position-absolute"
+              style="right:15px"
+              (click)="listForm.get('values').removeAt(i)">-</button>
+          <input type="text" class="form-control" [attr.id]="'value'+i" placeholder="Value *" formControlName="value">
+        </div>
+        <!--div class="form-group col-1">
+          <button type="button" class="btn btn-primary float-right"
+                  (click)="listForm.get('values').removeAt(i)">-</button>
+        </div>-->
+      </div>
+      <button type="button" class="btn btn-link"
+      (click)="listForm.get('values').push(buildItem(''))">Add another binding value</button>
+    </fieldset>
+
+
     <div class="form-group">
-      <button type="submit" class="btn btn-outline-success btn-block" [disabled]="!listForm.valid">Create</button>
+      <button type="submit" class="btn btn-outline-success btn-block" [disabled]="!listForm.valid">{{actionLabel}}</button>
+      <a routerLink="{{returnUrl}}" class="btn btn-outline-secondary btn-block">Cancel</a>
     </div>
   </form>
 </div>
+

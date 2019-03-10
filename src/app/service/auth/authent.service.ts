@@ -6,7 +6,7 @@ import { ModalService } from '../front/modal.service';
 
 import { LoginMutationGQL } from '../../gql/auth/mutation/LoginMutationGQL';
 import { CurrentUserQuery } from '../../gql/auth/query/CurrentUserGQL';
-import { User } from '../../model/user';
+import { User, UserEntity } from '../../model/user';
 import { forEach } from '@angular/router/src/utils/collection';
 
 export class IQueueCall{
@@ -19,15 +19,16 @@ export class IQueueCall{
   providedIn: 'root'
 })
 export class AuthentService {
-  currentUser: User;
-  currentCall: IQueueCall;
+  currentUser: UserEntity;
+  private currentCall: IQueueCall;
   private queue: IQueueCall[] = [];
 
   constructor(
-    public modalService: ModalService,
+    private modalService: ModalService,
     protected apolloService: ApolloService,
     protected apollo: Apollo,
-    protected loginMutationGQL: LoginMutationGQL
+    private loginMutationGQL: LoginMutationGQL,
+    private currentUserQuery: CurrentUserQuery
   ) {
     this.queue.splice(0,this.queue.length);
     this.apolloService.is403
@@ -60,13 +61,13 @@ export class AuthentService {
   load() {
     if(localStorage.getItem('token') != null){
       const operation = {
-        query: CurrentUserQuery
+        query: this.currentUserQuery.document
       };
       this.apolloService.executePromiseQuery(operation)
       .then(data => {
         //console.log(`received data ${JSON.stringify(data, null, 2)}`);
         if(data) {
-          this.currentUser = data.data.userAuth;
+          this.currentUser = UserEntity.factoryUser(data.data.userAuth);
           this.recall();
         }
       })
@@ -76,18 +77,10 @@ export class AuthentService {
     }
   }
 
-  hasRole(role: string): boolean{
-    if(this.currentUser.roles.find(elem => elem === role) != null){
-        return true;
-    }
-    return false;
-  }
-
   logout() {
     console.log('Deconnexion');
     localStorage.removeItem('user_uuid');
     localStorage.removeItem('token');
-    //console.log(localStorage);
     this.currentUser = null;
   }
 

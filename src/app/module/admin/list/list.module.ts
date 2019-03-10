@@ -20,7 +20,7 @@ const routes: Routes = [
     } 
   },
   {
-    path: 'admin/list/:id',
+    path: 'admin/list/:tag',
     component: ListEditComponent,
     canActivate: [GuardService], 
     data: { 
