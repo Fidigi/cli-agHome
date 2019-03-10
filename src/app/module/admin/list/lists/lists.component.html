@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-sm-4 col-lg-3">
+    <div class="card bg-light mb-3">
+      <div class="card-header">
+        <span class="v-center"><fa-icon [icon]="['fas', 'plus']" class="text-success"></fa-icon></span>
+        <h3>
+          <fa-icon [icon]="['fas', 'seedling']" class="text-success"></fa-icon> Lists
+        </h3>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">
+          <fa-icon [icon]="['fas', 'th-large']" class="text-success"></fa-icon> Squares
+          <span class="float-right"><fa-icon [icon]="['fas', 'plus']" class="text-success"></fa-icon></span>
+        </h5>
+        <p class="card-text">No squares</p>
+        <h5 class="card-title">
+          <fa-icon [icon]="['fas', 'leaf']" class="text-success"></fa-icon> Species
+          <span class="float-right"><fa-icon [icon]="['fas', 'plus']" class="text-success"></fa-icon></span>
+        </h5>
+        <p class="card-text">No planting</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-8 col-lg-9 d-none d-sm-block">
+    <div class="jumbotron">
+      {{text}}
+      <app-list-detail [list]="selectedList" ></app-list-detail>
+    </div>
+  </div>
+</div>

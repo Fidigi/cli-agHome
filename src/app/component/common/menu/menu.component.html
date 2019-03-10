@@ -13,7 +13,7 @@
               <span class="sr-only">(current)</span>
             </a>
         </li>
-        <li class="nav-item dropdown" *ngIf="auth.haveRole('ROLE_ADMIN')">
+        <li class="nav-item dropdown" *ngIf="auth.hasRole('ROLE_ADMIN')">
           <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Admin
             <span class="caret"></span>
@@ -47,9 +47,9 @@
       <button [disabled]="formSearch.invalid" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>-->
     <ul class="navbar-nav navbar-right">
-      <li class="nav-item dropdown" *ngIf="auth.currentUser; then thenBlock else elseBlock"></li>
+      <li class="nav-item dropdown" *ngIf="auth.currentUser; then currentUserBlock else loginBlock"></li>
 
-      <ng-template #thenBlock>
+      <ng-template #currentUserBlock>
       <li class="nav-item dropdown">
         <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{auth.currentUser.displayName}}
@@ -68,8 +68,8 @@
       </li>
       </ng-template>
 
-      <ng-template #elseBlock>
-      <li class="nav-item dropdown">
+      <ng-template #loginBlock>
+      <li  class="nav-item dropdown">
         <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Login
           <span class="caret"></span>
@@ -83,3 +83,7 @@
     </ul>
   </div>
 </nav>
+
+<app-modal [title]="'login'">
+  <app-login [embed]="'embed'" (embedClose)="closeModal($event)"></app-login>
+</app-modal>

@@ -7,12 +7,12 @@
     </div>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label class="sr-only" for="credential">Username or Email address</label>
-        <input type="text" class="form-control" id="credential" placeholder="Username / Email *" formControlName="username">
+        <label class="sr-only" for="{{id_username}}">Username or Email address</label>
+        <input type="text" class="form-control" id="{{id_username}}" placeholder="Username / Email *" formControlName="username">
       </div>
       <div class="form-group">
-        <label class="sr-only" for="password">Password</label>
-        <input type="password" class="form-control" id="password" placeholder="Password *" formControlName="password">
+        <label class="sr-only" for="{{id_password}}">Password</label>
+        <input type="password" class="form-control" id="{{id_password}}" placeholder="Password *" formControlName="password">
         <div class="help-block text-right">
           <a href="">Forget the password ?</a>
         </div>
@@ -22,8 +22,8 @@
       </div>
       <div class="form-group">
         <div class="custom-control custom-checkbox">
-          <input type="checkbox" class="custom-control-input" id="remember" formControlName="remember">
-          <label class="custom-control-label" for="remember">keep me logged-in</label>
+          <input type="checkbox" class="custom-control-input" id="{{id_remember}}" formControlName="remember">
+          <label class="custom-control-label" for="{{id_remember}}">keep me logged-in</label>
         </div>
       </div>
     </form>

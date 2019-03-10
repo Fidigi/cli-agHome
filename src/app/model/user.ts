@@ -1,3 +1,5 @@
+import { Token } from './token';
+
 export class User {
     uuid : string;
     displayName : string;
@@ -5,4 +7,5 @@ export class User {
     firstName? : string;
     lastName? : string;
     roles? : [string];
+    tokens? : [Token];
 }

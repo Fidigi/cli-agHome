@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRouteSnapshot, CanActivate } from '@angular/router';
-import { distinctUntilChanged } from 'rxjs/operators';
 
 import { AuthentService } from './authent.service';
 
@@ -10,31 +9,32 @@ import { AuthentService } from './authent.service';
 export class GuardService implements CanActivate {
 
   constructor(
-    public auth: AuthentService, 
+    public auth: AuthentService,
     public router: Router
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot|null): boolean {
     const expectedRole = route.data.expectedRole;
-    //console.log(expectedRole);
-    this.auth.isAuthenticated
-      .pipe(distinctUntilChanged())
-      .subscribe(isAuthenticated => {
-        if(isAuthenticated == true) {
-          if(expectedRole != null && this.auth.haveRole(expectedRole) !== true){
-            //console.log('401');
-            this.router.navigate(['401']);
-            return false;
-          } else {
-            return true;
-          }
-        }
-      });
+    console.log('canActivate');
     if(localStorage.getItem('token') === null){
-      //console.log('403');
-      this.router.navigate(['403']);
+      this.redirect('403');
       return false;
-    }
+    } 
+    else if(this.auth.currentUser != null) {
+      if(expectedRole != null && this.auth.hasRole(expectedRole) !== true){
+        this.redirect('401');
+        return false;
+      }
+    } 
     return true;
+  }
+
+  redirect($route: string, $option = null, absolute: boolean = false){
+    console.log("Redirect "+$route);
+    if(absolute){
+      document.location.href=$route;
+    } else {
+      this.router.navigate([$route]);
+    }
   }
 }

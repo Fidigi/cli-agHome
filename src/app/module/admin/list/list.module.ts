@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-import { GuardService } from '../../service/auth/guard.service';
+import { GuardService } from 'src/app/service/auth/guard.service';
 
-import { CommonModule } from '@angular/common';
-import { InfoComponent } from './info/info.component';
-import { ListModule } from './list/list.module';
+import { ListsComponent } from './lists/lists.component';
+import { ListDetailComponent } from './list-detail/list-detail.component';
+import { ListEditComponent } from './list-edit/list-edit.component';
 
 const routes: Routes = [
   {
-    path: 'admin/info',
-    component: InfoComponent,
+    path: 'admin/lists',
+    component: ListsComponent,
     canActivate: [GuardService], 
     data: { 
       expectedRole: 'ROLE_ADMIN'
@@ -21,16 +22,17 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    InfoComponent
+    ListsComponent,
+    ListDetailComponent,
+    ListEditComponent
   ],
   imports: [
     CommonModule,
     FontAwesomeModule,
-    ListModule,
     RouterModule.forRoot(routes,{onSameUrlNavigation: 'reload'})
   ],
   exports: [
     RouterModule
   ]
 })
-export class AdminModule { }
+export class ListModule { }

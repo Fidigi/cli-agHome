@@ -24,8 +24,8 @@ import { AdminModule } from './module/admin/admin.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/common/login/login.component';
 import { MenuComponent } from './component/common/menu/menu.component';
-//import { InfoComponent } from './component/info/info.component';
 import { HomeComponent } from './component/home/home.component';
+import { ModalComponent } from './component/modal/modal.component';
 
 export function initializeService(appService: any) {
   return () => appService.load();
@@ -36,8 +36,8 @@ export function initializeService(appService: any) {
     AppComponent,
     LoginComponent,
     MenuComponent,
-    //InfoComponent,
-    HomeComponent
+    HomeComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
