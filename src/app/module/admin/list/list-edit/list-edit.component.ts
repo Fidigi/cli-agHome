@@ -35,6 +35,7 @@ export class ListEditComponent implements OnInit {
 
   buildItem(val: string) {
     return new FormGroup({
+      id: new FormControl(0, Validators.required),
       value: new FormControl('', Validators.required)
     })
   }

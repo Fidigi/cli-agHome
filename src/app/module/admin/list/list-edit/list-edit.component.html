@@ -16,6 +16,7 @@
         *ngFor="let item of listForm.get('values').controls; let i=index"
         [formGroup]="item">
         <div class="form-group col-12">
+          <input type="hidden" [attr.id]="'id'+i" formControlName="id">
           <label [attr.for]="'value'+i" class="sr-only">Value</label>
             <button type="button" 
               class="btn btn-primary position-absolute"

@@ -35,8 +35,8 @@ export class ApolloService {
 
   private executeQuery(operation){
     const http = this.httpLink.create({
-      //uri: 'http://127.0.0.1:8000/graphql/'
-      uri: 'http://192.168.1.17:8000/graphql/'
+      uri: 'http://127.0.0.1:8000/graphql/'
+      //uri: 'http://192.168.1.17:8000/graphql/'
     });
 
     const auth = setContext((_, { headers }) => {
