@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { AuthentService } from 'src/app/service/auth/authent.service';
 
-import { CurrentUserQuery } from 'src/app/gql/admin/list/query/ListsGQL';
+import { ListsQuery } from 'src/app/gql/admin/list/query/ListsGQL';
+import { summaryFileName } from '@angular/compiler/src/aot/util';
 
 @Component({
   selector: 'app-lists',
@@ -13,14 +14,15 @@ export class ListsComponent implements OnInit {
   lists: any[];
 
   constructor(
-    private auth: AuthentService
+    private auth: AuthentService,
+    private listsQuery: ListsQuery
   ) { }
 
   ngOnInit() {
-    /*const operation = {
-      query: CurrentUserQuery
+    const operation = {
+      query: this.listsQuery.document
     };
-    this.requestData(operation);*/
+    this.requestData(operation);
   }
   
   requestData(operation){
@@ -29,7 +31,8 @@ export class ListsComponent implements OnInit {
     .then(data => {
       //console.log(`received data ${JSON.stringify(data, null, 2)}`);
       if(data) {
-        //console.log(data)
+        this.lists = data.data;
+        console.log(data.data);
       }
     })
     .catch(error => {
@@ -38,3 +41,5 @@ export class ListsComponent implements OnInit {
     return true;
   }
 }
+
+

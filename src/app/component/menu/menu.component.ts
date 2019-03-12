@@ -12,7 +12,7 @@ import { ModalService } from 'src/app/service/front/modal.service';
 export class MenuComponent implements OnInit {
 
   constructor(
-    private auth: AuthentService,
+    public auth: AuthentService,
     private modalService: ModalService,
     private router: Router
   ) {

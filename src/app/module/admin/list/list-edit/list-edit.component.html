@@ -13,7 +13,7 @@
     <fieldset formArrayName="values" class="form-group">
       <legend>Binding values</legend>
       <div class="row"
-        *ngFor="let item of listForm.get('values').controls; let i=index"
+        *ngFor="let item of this.listForm.get('values')['controls']; let i=index"
         [formGroup]="item">
         <div class="form-group col-12">
           <input type="hidden" [attr.id]="'id'+i" formControlName="id">
@@ -21,16 +21,12 @@
             <button type="button" 
               class="btn btn-primary position-absolute"
               style="right:15px"
-              (click)="listForm.get('values').removeAt(i)">-</button>
+              (click)="this.listForm.get('values').removeAt(i)">-</button>
           <input type="text" class="form-control" [attr.id]="'value'+i" placeholder="Value *" formControlName="value">
         </div>
-        <!--div class="form-group col-1">
-          <button type="button" class="btn btn-primary float-right"
-                  (click)="listForm.get('values').removeAt(i)">-</button>
-        </div>-->
       </div>
       <button type="button" class="btn btn-link"
-      (click)="listForm.get('values').push(buildItem(''))">Add another binding value</button>
+      (click)="addNewItem()">Add another binding value</button>
     </fieldset>
 
 

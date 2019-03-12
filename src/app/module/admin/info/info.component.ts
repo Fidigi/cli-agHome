@@ -10,10 +10,10 @@ import { AuthentService } from 'src/app/service/auth/authent.service';
 })
 export class InfoComponent implements OnInit {
   env = environment;
-  protected iAppConfig: IAppConfig = AppConfigService.settings;
+  public iAppConfig: IAppConfig = AppConfigService.settings;
 
   constructor(
-    protected auth: AuthentService
+    public auth: AuthentService
   ) {}
 
   ngOnInit() {

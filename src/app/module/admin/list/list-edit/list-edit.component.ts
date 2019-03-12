@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -8,19 +8,21 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./list-edit.component.scss']
 })
 export class ListEditComponent implements OnInit {
-  
-  private listForm: FormGroup;
+  formBuilder: FormBuilder
+  listForm: FormGroup;
   error: string = '';
 
-  private returnUrl: string = '/admin/lists';
+  returnUrl: string = '/admin/lists';
   private selectedListId = (this.route.snapshot.paramMap.get("tag") !== '0')? this.route.snapshot.paramMap.get("tag") : null;
-  private actionLabel = (this.selectedListId)? 'Update' : 'Create';
+  actionLabel = (this.selectedListId)? 'Update' : 'Create';
 
   constructor(
-    private formBuilder: FormBuilder,
+    formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {
+    this.formBuilder = formBuilder;
+  }
 
   ngOnInit() {
     this.listForm = this.formBuilder.group({
@@ -29,8 +31,14 @@ export class ListEditComponent implements OnInit {
     });
   }
 
+  //get formData() { return this.listForm.get('values') }
+
   onSubmit() {
     console.log(this.listForm.value);
+  }
+
+  addNewItem() {
+    (this.listForm.get('values') as FormArray).push(this.buildItem(''));
   }
 
   buildItem(val: string) {

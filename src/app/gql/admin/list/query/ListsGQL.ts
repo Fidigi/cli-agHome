@@ -1,11 +1,21 @@
+import { Injectable } from '@angular/core';
+import { Query } from 'apollo-angular';
 import gql from 'graphql-tag';
 
-export const CurrentUserQuery = gql`query{
-    userAuth{
-        uuid,
-        displayName,
-        firstname,
-        lastname,
-        roles
+@Injectable({
+  providedIn: 'root',
+})
+export class ListsQuery extends Query {
+  document = gql`
+    query{
+        listList{
+            lists{
+                id
+                tag
+                label
+                value
+            }
+        }
     }
-}`;
+    `;
+  }

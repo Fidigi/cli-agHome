@@ -13,16 +13,16 @@ export class LoginComponent implements OnInit {
   @Input() private embed: string;
   @Output() private embedClose: EventEmitter<String> = new EventEmitter();
 
-  private id_username: string = "username";
-  private id_password: string = "password";
-  private id_remember: string = "remember";
+  id_username: string = "username";
+  id_password: string = "password";
+  id_remember: string = "remember";
   
-  private loginForm: FormGroup;
+  loginForm: FormGroup;
   error: string = '';
 
   constructor(
-    private auth: AuthentService,
-    private formBuilder: FormBuilder,
+    public auth: AuthentService,
+    public formBuilder: FormBuilder,
     private router: Router
   ) {
   }
