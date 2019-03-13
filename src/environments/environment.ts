@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  //graph_uri: 'http://127.0.0.1:8000/graphql/'
+  graph_uri: 'http://192.168.1.17:8000/graphql/'
 };
 
 /*

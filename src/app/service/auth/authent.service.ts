@@ -6,8 +6,9 @@ import { ModalService } from '../front/modal.service';
 
 import { LoginMutationGQL } from '../../gql/auth/mutation/LoginMutationGQL';
 import { CurrentUserQuery } from '../../gql/auth/query/CurrentUserGQL';
-import { User, UserEntity } from '../../model/user';
-import { forEach } from '@angular/router/src/utils/collection';
+import { UserEntity } from '../../model/user';
+
+import * as Rx from 'rxjs';
 
 export class IQueueCall{
   object : Object;
@@ -19,9 +20,10 @@ export class IQueueCall{
   providedIn: 'root'
 })
 export class AuthentService {
-  currentUser: UserEntity;
+  private _onError = new Rx.BehaviorSubject(false);
   private currentCall: IQueueCall;
   private queue: IQueueCall[] = [];
+  public currentUser: UserEntity;
 
   constructor(
     private modalService: ModalService,
@@ -33,15 +35,32 @@ export class AuthentService {
     this.queue.splice(0,this.queue.length);
     this.apolloService.is403
       .subscribe(
-        isExpired => {
-          //console.log(isExpired);
-          if(isExpired == true) {
+        is403 => {
+          //console.log(is403);
+          if(is403 == true) {
             this.recallIfAuth(this.currentCall);
             this.logout();
-            this.modalService.open('login');
+            let closeOption = {
+              conditionToRedirect: '(localStorage.getItem("token") === null)',
+              redirect: '/'
+            }
+            this.modalService.open('login', closeOption);
           } 
         }
       );
+    this.apolloService.is500
+      .subscribe(
+        is500 => {
+          if(is500 == true) {
+            this.logout();
+            this._onError.next(true);
+          } 
+        }
+      );
+  }
+
+  get onError() {
+    return this._onError.asObservable();
   }
 
   authenticate(credentials: any){
@@ -85,7 +104,7 @@ export class AuthentService {
   }
 
   executeAuthentifiedPromise(operation: {[key:string]: any}, object: Object,methodName: string) {
-    let httpPromiseMock = Promise.reject('connection close');
+    let httpPromiseMock = Promise.reject({status:'10403',message:'connection close : recallIfAuth'});
     httpPromiseMock.then((val) => val).catch((val) => val);
 
     if(this.currentUser != null){

@@ -18,15 +18,15 @@ export class ModalService {
       this.modals = this.modals.filter(x => x.title !== title);
   }
 
-  open(title: string) {
+  open(title: string, closeOption = null) {
     // open modal specified by title
     let modal: any = this.modals.filter(x => x.title === title)[0];
-    modal.open();
+    modal.open(closeOption);
   }
   
-  close(title: string) {
+  close(title: string, executeCloseOption: boolean = true) {
     // close modal specified by title
     let modal: any = this.modals.filter(x => x.title === title)[0];
-    modal.close();
+    modal.close(executeCloseOption);
   }
 }

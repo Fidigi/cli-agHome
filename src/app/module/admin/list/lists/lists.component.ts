@@ -11,7 +11,9 @@ import { summaryFileName } from '@angular/compiler/src/aot/util';
   styleUrls: ['./lists.component.scss']
 })
 export class ListsComponent implements OnInit {
-  lists: any[];
+  public lists: any[];
+  public aListsTag: any[any];
+  public selectedList: any;
 
   constructor(
     private auth: AuthentService,
@@ -20,7 +22,8 @@ export class ListsComponent implements OnInit {
 
   ngOnInit() {
     const operation = {
-      query: this.listsQuery.document
+      query: this.listsQuery.document,
+      variables: { tag: "" }
     };
     this.requestData(operation);
   }
@@ -31,8 +34,24 @@ export class ListsComponent implements OnInit {
     .then(data => {
       //console.log(`received data ${JSON.stringify(data, null, 2)}`);
       if(data) {
-        this.lists = data.data;
-        console.log(data.data);
+        this.lists = data.data.listList.lists;
+        //console.log(this.lists);
+        this.lists.forEach((e, i) => { 
+          if( this.aListsTag === undefined ){
+            this.aListsTag = [{tag: e.tag,label: e.label,values:[{id:e.id,value:e.value}]}];
+          } else {
+            let tag = this.aListsTag.find((e2)=>{
+              if(e2.tag === e.tag){ return this; }
+            });
+            if(tag === undefined){
+              this.aListsTag.push({tag: e.tag,label: e.label,values:[{id:e.id,value:e.value}]}); 
+            } else {
+              tag.values.push({id:e.id,value:e.value});
+            }
+          }
+        });
+        this.selectedList = this.aListsTag[0];
+        console.log(this.aListsTag);
       }
     })
     .catch(error => {
@@ -40,6 +59,12 @@ export class ListsComponent implements OnInit {
     });
     return true;
   }
+
+  onSelect(list: any) {
+    this.selectedList = list;
+  }
 }
+
+
 
 

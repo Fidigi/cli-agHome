@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 import { Apollo } from 'apollo-angular';
 import { HttpHeaders } from '@angular/common/http';
@@ -15,27 +16,15 @@ export class ApolloService {
   private _is403 = new Rx.BehaviorSubject(false);
   private _is404 = new Rx.BehaviorSubject(false);
   private _is500 = new Rx.BehaviorSubject(false);
-  private _onError = new Rx.BehaviorSubject(false);
-  private stopRequest: boolean = false;
 
   constructor(
     protected apollo: Apollo,
     protected httpLink: HttpLink
-  ) {
-    this.onError
-      .subscribe(
-        error => {
-          //console.log(isExpired);
-          if(error == true) {
-            this.stopRequest = true;
-          } 
-        }
-      );
-  }
+  ) { }
 
   private executeQuery(operation){
     const http = this.httpLink.create({
-      uri: 'http://127.0.0.1:8000/graphql/'
+      uri: environment.graph_uri
       //uri: 'http://192.168.1.17:8000/graphql/'
     });
 
@@ -72,7 +61,7 @@ export class ApolloService {
   executePromiseQuery(operation){
     let result = makePromise(this.executeQuery(operation))
       .catch(error => {
-        //console.log(error);
+        console.log(error);
         this.propagateError(error.status);
       });
 
@@ -83,7 +72,6 @@ export class ApolloService {
     this._is403.next(false);
     this._is404.next(false);
     this._is500.next(false);
-    this._onError.next(false);
   }
 
   propagateError(status: number){
@@ -100,7 +88,6 @@ export class ApolloService {
       default:
         console.log('Sorry, ' + status + ' no propagate handler.');
     }
-    this._onError.next(true);
   }
 
   get is403() {
@@ -113,9 +100,5 @@ export class ApolloService {
 
   get is500() {
     return this._is500.asObservable();
-  }
-
-  get onError() {
-    return this._onError.asObservable();
   }
 }

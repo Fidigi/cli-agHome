@@ -38,7 +38,7 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FontAwesomeModule,
-    FormsModule,
+    FormsModule, 
     ReactiveFormsModule,
     RouterModule.forRoot(routes,{onSameUrlNavigation: 'reload'})
   ],

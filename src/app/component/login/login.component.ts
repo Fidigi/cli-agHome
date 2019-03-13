@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthentService } from 'src/app/service/auth/authent.service';
+import { ModalService } from 'src/app/service/front/modal.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { AuthentService } from 'src/app/service/auth/authent.service';
 })
 export class LoginComponent implements OnInit {
   @Input() private embed: string;
-  @Output() private embedClose: EventEmitter<String> = new EventEmitter();
+  //@Output() private embedClose: EventEmitter<String> = new EventEmitter();
 
   id_username: string = "username";
   id_password: string = "password";
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public auth: AuthentService,
+    private modalService: ModalService,
     public formBuilder: FormBuilder,
     private router: Router
   ) {
@@ -47,7 +49,8 @@ export class LoginComponent implements OnInit {
         //console.log(`received data ${JSON.stringify(data, null, 2)}`);
         this.auth.saveUserData(data.data.signin);
         if(this.embed){
-          this.embedClose.emit(this.embed);
+          //this.embedClose.emit(this.embed);
+          this.modalService.close(this.embed);
         }
       })
       .catch(error => {

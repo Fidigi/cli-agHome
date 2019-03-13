@@ -7,8 +7,8 @@ import gql from 'graphql-tag';
 })
 export class ListsQuery extends Query {
   document = gql`
-    query{
-        listList{
+  query listList($tag: String){
+        listList(tag:$tag){
             lists{
                 id
                 tag
@@ -16,6 +16,5 @@ export class ListsQuery extends Query {
                 value
             }
         }
-    }
-    `;
-  }
+  }`;
+}

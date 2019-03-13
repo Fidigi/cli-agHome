@@ -1,3 +1,21 @@
-<div *ngIf="list" class="card">
-  {{list | json}}
+
+<div class="jumbotron" *ngIf="list">
+  <h1 class="text-center">{{list.label}}</h1>
+  <div class="form-group">
+    Label
+    <span class="form-control">{{list.label}}</span>
+    Tag
+    <span class="form-control">{{list.tag}}</span>
+  </div>
+  <legend>Binding values</legend>
+  <div *ngFor="let item of list.values; let i=index">
+    <div class="form-group">
+      <span class="form-control">
+        {{item.value}}
+        <small class="text-muted">: {{item.id}}</small>
+      </span>
+    </div>
+  </div>
 </div>
+  
+  

@@ -6,31 +6,37 @@
           <fa-icon [icon]="['fas', 'seedling']" class="text-success"></fa-icon> Lists
           <a routerLink="/admin/list/0" class="float-right">
             <fa-icon [icon]="['fas', 'plus']" class="text-success"></fa-icon>
-            <span class="sr-only">create list</span>
+            <span class="sr-only">Create list</span>
           </a>
         </h3>
       </div>
-      <div class="card-body">
+      <div class="card-body" id="list-accordion">
         <ng-template [ngIf]="!lists">
           no lists found : <a routerLink="/admin/list/0">create list</a>
         </ng-template>
-        <!--h5 class="card-title">
-          <fa-icon [icon]="['fas', 'th-large']" class="text-success"></fa-icon> Squares
-          <span class="float-right"><fa-icon [icon]="['fas', 'plus']" class="text-success"></fa-icon></span>
-        </h5>
-        <p class="card-text">No squares</p>
-        <h5 class="card-title">
-          <fa-icon [icon]="['fas', 'leaf']" class="text-success"></fa-icon> Species
-          <span class="float-right"><fa-icon [icon]="['fas', 'plus']" class="text-success"></fa-icon></span>
-        </h5>
-        <p class="card-text">No planting</p>-->
+        <div *ngFor="let tag of aListsTag; index as i;" class="mb-3">
+          <h5 class="card-title mb-0">
+            <a class="nav-link d-inline p-0" (click)="onSelect(tag)" data-toggle="collapse" data-parent="#list-accordion" href="#list-collapse{{i}}">
+              <fa-icon [icon]="['far', 'eye']" class="text-success"></fa-icon> {{tag.label}}
+            </a>
+            <a routerLink="/admin/list/{{tag.tag}}" class="float-right">
+              <fa-icon [icon]="['fas', 'edit']" class="text-success"></fa-icon>
+              <span class="sr-only">Edit list</span>
+            </a>
+          </h5>
+          <p id="list-collapse{{i}}" class="card-text collapse text-muted text-truncate" data-parent="#list-accordion">
+            <small><b>tag</b> : {{tag.tag}}</small><br>
+            <small><b>values</b> : 
+              <span *ngFor="let values of tag.values; let last = last;">
+                {{values.value}}<ng-template [ngIf]="!last">,</ng-template>
+              </span>
+            </small>
+          </p>
+        </div>
       </div>
     </div>
   </div>
   <div class="col-sm-8 col-lg-9 d-none d-sm-block">
-    <div class="jumbotron">
-      {{lists | json}}
-      <!--app-list-detail [list]="selectedList" ></app-list-detail>-->
-    </div>
+    <app-list-detail [list]="selectedList" ></app-list-detail>
   </div>
 </div>

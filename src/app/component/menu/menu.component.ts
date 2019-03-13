@@ -20,14 +20,6 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
   }
- 
-  openModal(id: string) {
-      this.modalService.open(id);
-  }
-
-  closeModal(id: string) {
-      this.modalService.close(id);
-  }
   
   logout() {
     this.auth.logout();
