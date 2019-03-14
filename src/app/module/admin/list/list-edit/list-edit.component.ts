@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -12,9 +12,10 @@ import { AuthentService } from 'src/app/service/auth/authent.service';
   styleUrls: ['./list-edit.component.scss']
 })
 export class ListEditComponent implements OnInit {
+  @Input() list;
   listForm: FormGroup;
   error: string = '';
-  public selectedList: any;
+  public selectedList: any = (this.list != null)? this.list : null;
 
   returnUrl: string = '/admin/lists';
   private selectedListTag = (this.route.snapshot.paramMap.get("tag") !== '0')? this.route.snapshot.paramMap.get("tag") : null;
@@ -47,10 +48,20 @@ export class ListEditComponent implements OnInit {
     }
   }
 
-  //get formData() { return this.listForm.get('values') }
+  get tag() {
+    return this.listForm.get('tag');
+  }
+  
+  get label() {
+    return this.listForm.get('label');
+  }
+  
+  get values() {
+    return this.listForm.get('values');
+  }
 
   onSubmit() {
-    console.log(this.listForm.value);
+    //console.log(this.listForm.value);
     const operation = {
       query: this.listsActionGQL.document,
       variables: this.listForm.value
@@ -64,7 +75,7 @@ export class ListEditComponent implements OnInit {
 
   buildItem(id: number = 0, val: string = '') {
     return new FormGroup({
-      'id': new FormControl(id, Validators.required),
+      'id': new FormControl(id),
       'value': new FormControl(val, Validators.required)
     })
   }
@@ -73,7 +84,7 @@ export class ListEditComponent implements OnInit {
     this.auth.executeAuthentifiedPromise(operation,this,'requestData')
     .then(data => {
       //console.log(`received data ${JSON.stringify(data, null, 2)}`);
-      if(data) {
+      if(data.data) {
         this.selectedList = data.data.listList.lists
         //console.log(this.selectedList);
         this.listForm = this.formBuilder.group({
@@ -95,9 +106,10 @@ export class ListEditComponent implements OnInit {
       }
     })
     .catch(error => {
+      //console.log(error);
       if(error.status != '10403'){
+        //console.log(error);
         this.router.navigate(['/admin/lists']);
-        console.log(error);
       }
     });
     return true;
@@ -107,18 +119,22 @@ export class ListEditComponent implements OnInit {
     this.auth.executeAuthentifiedPromise(operation,this,'registerData')
     .then(data => {
       //console.log(`received data ${JSON.stringify(data, null, 2)}`);
-      if(data.data) {
-        console.log(data.data);
+      if(data.data.list_action) {
+        //console.log(data.data.list_action);
+        this.router.navigate(['/admin/lists']);
       } 
       if(data.errors) {
         data.errors.forEach((e) => {
-          console.log(e);
+          //console.log(e);
+          if(e.category == 'label' && e.message == "Already exist"){
+            this.label.setErrors({notUnique: true});
+          }
         });
       }
     })
     .catch(error => {
       if(error.status != '10403'){
-        console.log(error);
+        //console.log(error);
         this.router.navigate(['/admin/lists']);
       }
     });

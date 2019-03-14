@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   //graph_uri: 'http://127.0.0.1:8000/graphql/'
-  graph_uri: 'http://192.168.1.17:8000/graphql/'
+  graph_uri: 'http://192.168.8.134:8000/graphql/'
+  //graph_uri: 'http://192.168.1.17:8000/graphql/'
 };
 
 /*

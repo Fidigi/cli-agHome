@@ -14,6 +14,7 @@ export class ListsComponent implements OnInit {
   public lists: any[];
   public aListsTag: any[any];
   public selectedList: any;
+  public selectedListEdit: any;
 
   constructor(
     private auth: AuthentService,
@@ -51,6 +52,7 @@ export class ListsComponent implements OnInit {
           }
         });
         this.selectedList = this.aListsTag[0];
+        this.selectedListEdit = this.aListsTag[0];
         console.log(this.aListsTag);
       }
     })

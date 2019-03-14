@@ -7,16 +7,17 @@
   <form [formGroup]="listForm" *ngIf="listForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="label">Label</label>
-      <input type="text" class="form-control" id="label" placeholder="Label *" formControlName="label">
+      <input type="text" class="form-control" id="label" placeholder="Label *" formControlName="label" [class.is-invalid]="label.errors">
+      <span *ngIf="label.errors && label.errors.notUnique" class="text-danger">label already exist.</span>
       <small id="typeHelp" class="form-text text-muted">Unique label require.</small>
     </div>
+    
     <fieldset formArrayName="values" class="form-group">
       <legend>Binding values</legend>
       <div class="row"
         *ngFor="let item of this.listForm.get('values')['controls']; let i=index"
         [formGroup]="item">
         <div class="form-group col-12">
-          <input type="hidden" [attr.id]="'id'+i" formControlName="id">
           <label [attr.for]="'value'+i" class="sr-only">Value</label>
             <button type="button" 
               class="btn btn-primary position-absolute"
@@ -28,7 +29,6 @@
       <button type="button" class="btn btn-link"
       (click)="addNewItem()">Add another binding value</button>
     </fieldset>
-
 
     <div class="form-group">
       <button type="submit" class="btn btn-outline-success btn-block" [disabled]="!listForm.valid">{{actionLabel}}</button>
